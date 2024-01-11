@@ -2,94 +2,100 @@ import React, { useState, useRef, useEffect } from 'react';
 import './App.css';
 import bird1 from "./images/paret.webp";
 import bird2 from "./images/paret2.webp";
-import star1 from "./images/star1.webp";
-import star2 from "./images/star2.webp";
 import arrow from "./images/arrow.webp";
 import spin from "./images/btn.png";
+import bWheel from "./images/bwheel.svg"
 import PopUp from './components/PopUp';
 import bg from "./images/bg3.webp";
 import startSound from './audio/start.mp3';
 import winSound from './audio/win.mp3';
-import loseSound  from "./audio/lose.mp3"
+import loseSound from "./audio/lose.mp3"
 function App() {
   const [clicks, setClicks] = useState(0);
   const [rotation, setRotation] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
-  const [prices, setPrices] = useState({
-    price1: "Empty",
-    price2: 400,
+  const [newOffsetAngle, setNewOffSetAngle] = useState(false);
+  const [prizes, setPrizes] = useState({
+    price1: 5,
+    price2: 1568,
     price3: 1000,
     price4: 15,
-    price5: "Empty",
+    price5: 105,
     price6: 300,
-    price7: 5000,
-    price8: 600,
   });
-  const [winPrize, setWinPrize] = useState();
+  const [winPrize, setWinPrize] = useState(null);
+  const [winningSegment, setWinningSegment] = useState(null);
 
   const startAudioRef = useRef(null);
   const winAudioRef = useRef(null);
-const loseAudioRef = useRef(null)
+  const loseAudioRef = useRef(null);
+
   useEffect(() => {
-    const popUpShown = localStorage.getItem('popUpShown') === 'true';
-    const savedClicks = parseInt(localStorage.getItem('clicks'), 10) || 0;
-    const savedWinPrize = localStorage.getItem('winPrize');
-    setShowPopUp(popUpShown);
-    setClicks(savedClicks);
-    if (savedWinPrize) {
-      setWinPrize(savedWinPrize);
+    const storedPopUpShown = localStorage.getItem('popUpShown');
+    const storedClicks = parseInt(localStorage.getItem('clicks'), 10);
+    const storedWinPrize = localStorage.getItem('winPrize');
+
+    if (storedPopUpShown === 'true') {
+      setShowPopUp(true);
     }
+
+    setClicks(storedClicks || 0);
+    setWinPrize(storedWinPrize || null);
   }, []);
 
   const handleSpinClick = () => {
     if (clicks > 0) {
-      return;
+      return; // Prevent spinning if clicks are more than 0
     }
-    setClicks(1);
-    localStorage.setItem('clicks', '1');
 
-    const newRotation = rotation + 360 + Math.floor(Math.random() * 1000);
-    // console.log(newRotation)
+    setClicks(clicks => clicks + 1);
+    const degreesPerSegment = 360 / 6;
+    const chosenSegment = Math.floor(Math.random() * 6);
+    const extraDegrees = 1080; // Ensures the wheel spins at least 3 times for visual effect
+    const newRotation = rotation + extraDegrees + (chosenSegment * degreesPerSegment);
     setRotation(newRotation);
+    setWinningSegment(chosenSegment);
+
     startAudioRef.current.play();
 
     setTimeout(() => {
       const finalRotation = newRotation % 360;
-      const offsetAngle = (385 - finalRotation + 22.5) % 360;
+      const offsetAngle = (385 - finalRotation + 22.5) % 385;
+      setNewOffSetAngle(offsetAngle)
       console.log(offsetAngle)
       const winningSector = Math.floor(offsetAngle / 40);
       let winningPrice;
 
       if (winningSector > 7) {
-        winningPrice = prices.price8;
+        winningPrice = prizes.price6;
       } else if (winningSector === 1) {
-        winningPrice = prices.price1;
+        winningPrice = prizes.price1;
       } else if (winningSector === 0) {
-        winningPrice = prices.price2;
+        winningPrice = prizes.price2;
       } else {
-        winningPrice = prices[`price${winningSector + 1}`];
+        winningPrice = prizes[`price${winningSector + 1}`];
       }
 
       localStorage.setItem('winPrize', winningPrice);
       setWinPrize(winningPrice);
-     {winningPrice === "Empty" ? loseAudioRef.current.play(): winAudioRef.current.play();}
-
+      winningPrice === "Empty" ? loseAudioRef.current.play() : winAudioRef.current.play();
 
       localStorage.setItem('popUpShown', 'true');
+      localStorage.setItem('clicks', '1');
       setShowPopUp(true);
     }, 5000);
   };
+
+
 
   const handleClaimBonus = () => {
     setShowPopUp(true);
     setClicks(1);
     localStorage.setItem('popUpShown', 'true');
     localStorage.setItem('clicks', '1');
-    // localStorage.removeItem('winPrize');
-    // setWinPrize(undefined);
   };
 
-  const handleCloseBtn = () =>{
+  const handleCloseBtn = () => {
     setShowPopUp(false);
     setClicks(0);
     localStorage.setItem('popUpShown', 'false');
@@ -101,35 +107,35 @@ const loseAudioRef = useRef(null)
 
   return (
     <div className="App">
-      <div id="spin" onClick={handleSpinClick}>
-        <img src={spin} alt="Spin" />
-      </div>
       <div className='birds'>
         <img className='bird-1' src={bird1} alt="Bird 1" />
         <img className='bird-2' src={bird2} alt="Bird 2" />
       </div>
-      <div className='stars'>
-        <img className='bird-1' src={star1} alt="Bird 1" />
-        <img className='bird-2' src={star2} alt="Bird 2" />
+      <div className='wheel'>
+        <img src={bWheel} alt="" />
       </div>
-      <div className='design'>
-        <img src={bg} width={500} height={500} alt="Background" />
+      <div className="wheel-container">
+        <div className='design'>
+          <img src={bg} alt="Background" />
+        </div>
+        <div className="arrow">
+          <img src={arrow} alt="Arrow" />
+        </div>
+        <div className='container' style={{ transform: `rotate(${rotation}deg)` }}>
+          <div id="spin" onClick={handleSpinClick}>
+            <img src={spin} alt="Spin" />
+          </div>
+          {Object.entries(prizes).map(([key, value], index) => (
+            <div key={key} className={`segment segment-${index + 1}`}
+              style={{ '--segment-rotation': `${(index + 1) * 60}deg` }}>
+              <h1>{key === 'price1' ? `FS` : `R$`} <span>{value}</span></h1>
+            </div>
+          ))}
+        </div>
       </div>
-      <span className="arrow">
-        <img src={arrow} alt="Arrow" />
-      </span>
-      <div className="container" style={{ transform: `rotate(${rotation}deg)` }}>
-        <div className="one">{prices.price1}</div>
-        <div className="eight">{prices.price2} Fs</div>
-        <div className="two">${prices.price3}</div>
-        <div className="three">{prices.price4} Fs</div>
-        <div className="four">{prices.price5}</div>
-        <div className="five">${prices.price6}</div>
-        <div className="six">{prices.price7} Fs</div>
-        <div className="seven">${prices.price8}</div>
-      </div>
+
       {showPopUp && clicks > 0 && (
-        <PopUp winPrize={winPrize} onClaimBonus={handleClaimBonus} handleCloseBtn={handleCloseBtn}/>
+        <PopUp winPrize={winPrize} prizes={prizes} onClaimBonus={handleClaimBonus} newOffsetAngle={newOffsetAngle} handleCloseBtn={handleCloseBtn} />
       )}
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>

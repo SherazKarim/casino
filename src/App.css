@@ -13,10 +13,16 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 100vh;
-	overflow: hidden;
+	height: 110vh;
+	/* min-height: fit-content; */
+	/* overflow-x: scroll; */
+	overflow-y: hidden;
+
 }
 
+.wheel-container{
+	position: relative;
+}
 .container {
 	width: 500px;
 	height: 500px;
@@ -26,11 +32,138 @@
 	border-radius: 50%;
 	position: relative;
 	overflow: hidden;
-	transition: transform 5s; 
+	transition: transform 5s;
 	transform-origin: center;
+	margin: 150px 0 ;
 }
 
-.container div {
+
+.container h1 {
+	position: absolute;
+	font-size: 1.2rem;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 50;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	gap: 15px;
+	text-shadow: 0px 4px 0px darkred;
+	/* Dark red text shadow */
+
+	/* height: auto; */
+	/* width: 60%; */
+}
+
+.container h1 span {
+	font-size: 1.5rem;
+	position: fixed;
+	top: 60%;
+	font-weight: 800;
+	/* text-shadow: 0px 4px 0px darkred; Dark red text shadow */
+}
+
+.arrow {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: absolute;
+	z-index: 150;
+	top: 15%;
+	left: 49.7%;
+	transform: translateX(-50%);
+}
+
+
+#spin {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100px;
+	height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: url('./images//cursor.svg'), pointer;
+	z-index: 100;
+}
+
+#spin img {
+	width: 100%;
+	height: auto;
+	pointer-events: none;
+}
+
+.birds {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	top: 0%;
+	/* mr */
+}
+
+.birds img {
+	width: 35%;
+	margin: 0 -39px;
+}
+
+
+.design {
+	position: absolute;
+	/* z-index: 50; */
+	/* display: flex;
+	justify-content: center;
+	align-items: center; */
+	top: -14%;
+	transform: rotate(180deg);
+}
+
+.design img{
+	width: 100%;
+	height: 100%;
+}
+
+
+
+@media (max-width: 540px) {
+	.App{
+	height: 100vh;
+	}
+	.container {
+		width: 350px;
+		height: 350px;
+	}
+	#spin img {
+		width: 50%;
+		height: auto;
+		pointer-events: none;
+	}
+
+	.container div {
+		font-size: 14px;
+	}
+
+	.arrow {
+		 top:20%;
+		/* left: 27.5%; */
+
+	}
+	.arrow img {
+		width: 70%;
+	}
+	.design{
+		top: 0%;
+	}
+	.birds img {
+		width: 35%;
+		margin: 0 0;
+	}
+}
+.container .segment {
 	position: absolute;
 	transform-origin: center;
 	text-align: center;
@@ -40,154 +173,102 @@
 	color: #fff;
 }
 
-.container .one {
-	left: 44%;
-	top: 14%;
-}
-
-.container .two {
-	left: 68%;
-	top: 25%;
-	transform: rotate(45deg);
-}
-
-.container .three {
-	left: 78%;
-	top: 48%;
-	transform: rotate(90deg);
-}
-
-.container .four {
-	left: 68%;
-	top: 71%;
-	transform: rotate(135deg);
-}
-
-.container .five {
-	left: 44%;
-	top: 81%;
-	transform: rotate(180deg);
-}
-
-.container .six {
-	left: 18%;
-	top: 71%;
-	transform: rotate(225deg);
-}
-
-.container .seven {
-	left: 11%;
-	top: 48%;
-	transform: rotate(270deg);
-}
-
-.container .eight {
-
-	left: 19%;
-	top: 25%;
-	transform: rotate(315deg);
-}
-
-.arrow {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+/* Position each segment with the correct rotation */
+.container .segment-1 {
+	left: 37.2%;
+	top: 5%;
+	background-image: url('./images/star1.webp');
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
 	position: relative;
-	z-index: 50;
+	border-radius: 50%;
 }
 
-.arrow img {
-	position: absolute;
+.container .segment-2 {
+	background-image: url('./images/star2.webp');
+	/* background-repeat: no-repeat; */
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	left: 65%;
+	top: -4%;
 }
 
-#spin {
+.container .segment-3 {
+	background-image: url('./images/star1.webp');
+	/* background-repeat: no-repeat; */
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	left: 68%;
+	top: 4%;
+}
+
+.container .segment-4 {
+	background-image: url('./images/star2.webp');
+	/* background-repeat: no-repeat; */
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	left: 40%;
+	top: -1%;
+}
+
+.container .segment-5 {
+	background-image: url('./images/star1.webp');
+	/* background-repeat: no-repeat; */
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	left: 10.5%;
+	top: -39.7%;
+}
+
+.container .segment-6 {
+	background-image: url('./images/star1.webp');
+	/* background-repeat: no-repeat; */
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	left: 8.5%;
+	top: -95.5%;
+}
+
+/* Rotate the text within each segment to be readable */
+.container .segment h1 {
+	transform: rotate(-var(--segment-rotation));
+	/* Counter-rotate the text */
+	transform-origin: 50% 0;
+	/* Pivot point at the top center of the text */
+}
+
+.wheel{
+	position: relative;
+	/* top: 50%; */
+	width: 100%;
+}
+
+.wheel img{
 	position: absolute;
-	top: 50%;
+	top: 65px;
 	left: 50%;
-	transform: translate(-50%, -50%);
-	width: 100px; 
-	height: 100px; 
-	display: flex; 
-	align-items: center; 
-	justify-content: center; 
-	cursor: pointer;
-	z-index: 100; 
-  }
-  
-  #spin img {
-	width: 100%; 
-	height: auto; 
-	pointer-events: none; 
-  }
-  
-
-
-@media (max-width: 540px) {
-	.container {
-		width: 350px;
-		height: 350px;
-	}
-
-	#spin {
-		top: 52.5%;
-		width: 70px;
-		height: 70px;
-	}
-
-	.container div {
-		font-size: 14px;
-	}
-
-	.arrow {
-		height: 50px;
-		width: 50px;
-	}
+	transform: translateX(-50%);
+	width: 150px;
 }
-
-
-
-
-.birds {
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	top: 20%;
-}
-
-.birds img {
-	width: 20%;
-}
-
-
-
-.stars {
-	position: absolute;
-	z-index: 50;
-}
-
-.stars .bird-1 {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 10%;
-
-}
-.stars .bird-2 {
-	position: fixed;
-	bottom: 0;
-	right: 0;
-	width: 10%;
-}
-
-.design {
-	position: absolute;
-	z-index: 50;
-}
-
-.design img {
-	position: fixed;
-	bottom: -23%;
-	left: 0;
-}
-
