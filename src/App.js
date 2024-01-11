@@ -62,7 +62,6 @@ function App() {
       const finalRotation = newRotation % 360;
       const offsetAngle = (385 - finalRotation + 22.5) % 385;
       setNewOffSetAngle(offsetAngle)
-      console.log(offsetAngle)
       const winningSector = Math.floor(offsetAngle / 40);
       let winningPrice;
 
