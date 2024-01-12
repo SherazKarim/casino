@@ -1,15 +1,19 @@
-import React, { useState, useRef, useEffect } from 'react';
-import './App.css';
+import React, { useState, useRef, useEffect } from "react";
+import "./App.css";
 import bird1 from "./images/paret.webp";
 import bird2 from "./images/paret2.webp";
 import arrow from "./images/arrow.webp";
 import spin from "./images/btn.png";
-import bWheel from "./images/bwheel.svg"
-import PopUp from './components/PopUp';
+import bWheel from "./images/bwheel.svg";
+import PopUp from "./components/PopUp";
+import footer_logo from "./images/footer-logo.svg";
 import bg from "./images/bg3.webp";
-import startSound from './audio/start.mp3';
-import winSound from './audio/win.mp3';
-import loseSound from "./audio/lose.mp3"
+import startSound from "./audio/start.mp3";
+import winSound from "./audio/win.mp3";
+import loseSound from "./audio/lose.mp3";
+import {Wrapper} from "./components/wrapper/Wrapper";
+import Footer from "./components/footer/Footer";
+import Logo from "./components/logos/Logo";
 function App() {
   const [clicks, setClicks] = useState(0);
   const [rotation, setRotation] = useState(0);
@@ -31,11 +35,11 @@ function App() {
   const loseAudioRef = useRef(null);
 
   useEffect(() => {
-    const storedPopUpShown = localStorage.getItem('popUpShown');
-    const storedClicks = parseInt(localStorage.getItem('clicks'), 10);
-    const storedWinPrize = localStorage.getItem('winPrize');
+    const storedPopUpShown = localStorage.getItem("popUpShown");
+    const storedClicks = parseInt(localStorage.getItem("clicks"), 10);
+    const storedWinPrize = localStorage.getItem("winPrize");
 
-    if (storedPopUpShown === 'true') {
+    if (storedPopUpShown === "true") {
       setShowPopUp(true);
     }
 
@@ -48,11 +52,12 @@ function App() {
       return; // Prevent spinning if clicks are more than 0
     }
 
-    setClicks(clicks => clicks + 1);
+    setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(Math.random() * 6);
     const extraDegrees = 1080; // Ensures the wheel spins at least 3 times for visual effect
-    const newRotation = rotation + extraDegrees + (chosenSegment * degreesPerSegment);
+    const newRotation =
+      rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
@@ -61,7 +66,7 @@ function App() {
     setTimeout(() => {
       const finalRotation = newRotation % 360;
       const offsetAngle = (385 - finalRotation + 22.5) % 385;
-      setNewOffSetAngle(offsetAngle)
+      setNewOffSetAngle(offsetAngle);
       const winningSector = Math.floor(offsetAngle / 40);
       let winningPrice;
 
@@ -75,66 +80,88 @@ function App() {
         winningPrice = prizes[`price${winningSector + 1}`];
       }
 
-      localStorage.setItem('winPrize', winningPrice);
+      localStorage.setItem("winPrize", winningPrice);
       setWinPrize(winningPrice);
-      winningPrice === "Empty" ? loseAudioRef.current.play() : winAudioRef.current.play();
+      winningPrice === "Empty"
+        ? loseAudioRef.current.play()
+        : winAudioRef.current.play();
 
-      localStorage.setItem('popUpShown', 'true');
-      localStorage.setItem('clicks', '1');
+      localStorage.setItem("popUpShown", "true");
+      localStorage.setItem("clicks", "1");
       setShowPopUp(true);
     }, 5000);
   };
 
-
-
   const handleClaimBonus = () => {
     setShowPopUp(true);
     setClicks(1);
-    localStorage.setItem('popUpShown', 'true');
-    localStorage.setItem('clicks', '1');
+    localStorage.setItem("popUpShown", "true");
+    localStorage.setItem("clicks", "1");
   };
 
   const handleCloseBtn = () => {
     setShowPopUp(false);
     setClicks(0);
-    localStorage.setItem('popUpShown', 'false');
-    localStorage.setItem('clicks', '0');
-    localStorage.removeItem('winPrize');
+    localStorage.setItem("popUpShown", "false");
+    localStorage.setItem("clicks", "0");
+    localStorage.removeItem("winPrize");
     setWinPrize(undefined);
-  }
-
+  };
 
   return (
-    <div className="App">
-      <div className='birds'>
-        <img className='bird-1' src={bird1} alt="Bird 1" />
-        <img className='bird-2' src={bird2} alt="Bird 2" />
+    <div className="App  py-10">
+      <div className="wheel flex flex-col justify-center items-center mt-5 sm:mb-32 mb-28">
+        <img className="w-[150px]" src={footer_logo} alt="" />
+        <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
+          Spin the Wheel
+          <span>And get the free Bonus</span>
+        </h1>
       </div>
-      <div className='wheel'>
-        <img src={bWheel} alt="" />
+      <Wrapper className="wheel-container relative w-[100%] flex justify-center items-center">
+      <div className="absolute sm:top-[-22%] top-[-20%] z-[999]">
+        <img className="sm:w-[200px] w-[120px]" src={bWheel} alt="" />
       </div>
-      <div className="wheel-container">
-        <div className='design'>
-          <img src={bg} alt="Background" />
+        <div className='absolute sm:top-[-72%] top-[-20%] z-[999]">'>
+          <img className="rotate-[190deg] w-[700px] " src={bg} alt="Background" />
         </div>
-        <div className="arrow">
+        <div className="birds absolute top-[-25%] z-50 flex sm:justify-evenly justify-around w-full">
+          <img className="sm:w-[200px] w-[120px]" src={bird1} alt="Bird 1" />
+          <img className="sm:w-[200px] w-[120px]" src={bird2} alt="Bird 2" />
+        </div>
+        <div className="arrow absolute left-[49.2%] z-[80] sm:top-[-5%] top-[-12%] -translate-x-[50%]">
           <img src={arrow} alt="Arrow" />
         </div>
-        <div className='container' style={{ transform: `rotate(${rotation}deg)` }}>
+        <div
+          className="container"
+          style={{ transform: `rotate(${rotation}deg)` }}
+        >
           <div id="spin" onClick={handleSpinClick}>
             <img src={spin} alt="Spin" />
           </div>
           {Object.entries(prizes).map(([key, value], index) => (
-            <div key={key} className={`segment segment-${index + 1}`}
-              style={{ '--segment-rotation': `${(index + 1) * 60}deg` }}>
-              <h1>{key === 'price1' ? `FS` : `R$`} <span>{value}</span></h1>
+            <div
+              key={key}
+              className={`segment segment-${index + 1}`}
+              style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
+            >
+              <h1>
+                {key === "price1" ? `FS` : `R$`} <span>{value}</span>
+              </h1>
             </div>
           ))}
         </div>
-      </div>
-
+      </Wrapper>
+      {/* footer  */}
+      <Logo />
+      <Footer />
       {showPopUp && clicks > 0 && (
-        <PopUp winPrize={winPrize} prizes={prizes} onClaimBonus={handleClaimBonus} newOffsetAngle={newOffsetAngle} handleCloseBtn={handleCloseBtn} />
+        <PopUp
+          winPrize={winPrize}
+          prizes={prizes}
+          onClaimBonus={handleClaimBonus}
+          newOffsetAngle={newOffsetAngle}
+          handleCloseBtn={handleCloseBtn}
+        />
       )}
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>

@@ -8,16 +8,13 @@
 	background-image: url('./images//bg.webp');
 	background-position: center;
 	background-size: cover;
-	object-fit: contain;
+	object-fit: cover;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: 110vh;
-	/* min-height: fit-content; */
-	/* overflow-x: scroll; */
-	overflow-y: hidden;
-
+	height: auto;
+	box-sizing: border-box;
 }
 
 .wheel-container{
@@ -34,7 +31,7 @@
 	overflow: hidden;
 	transition: transform 5s;
 	transform-origin: center;
-	margin: 150px 0 ;
+	/* margin: 150px 0 ; */
 }
 
 
@@ -65,7 +62,7 @@
 	/* text-shadow: 0px 4px 0px darkred; Dark red text shadow */
 }
 
-.arrow {
+/* .arrow {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -74,7 +71,7 @@
 	top: 15%;
 	left: 49.7%;
 	transform: translateX(-50%);
-}
+} */
 
 
 #spin {
@@ -88,27 +85,12 @@
 	align-items: center;
 	justify-content: center;
 	cursor: url('./images//cursor.svg'), pointer;
-	z-index: 100;
+	z-index: 999;
 }
 
 #spin img {
 	width: 100%;
 	height: auto;
-	pointer-events: none;
-}
-
-.birds {
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	top: 0%;
-	/* mr */
-}
-
-.birds img {
-	width: 35%;
-	margin: 0 -39px;
 }
 
 
@@ -129,13 +111,13 @@
 
 
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
 	.App{
-	height: 100vh;
+	height: auto;
 	}
 	.container {
-		width: 350px;
-		height: 350px;
+		width: 400px;
+		height: 400px;
 	}
 	#spin img {
 		width: 50%;
@@ -146,21 +128,14 @@
 	.container div {
 		font-size: 14px;
 	}
-
-	.arrow {
-		 top:20%;
-		/* left: 27.5%; */
-
+}
+@media (max-width: 440px) {
+	.App{
+	height: auto;
 	}
-	.arrow img {
-		width: 70%;
-	}
-	.design{
-		top: 0%;
-	}
-	.birds img {
-		width: 35%;
-		margin: 0 0;
+	.container {
+		width: 350px;
+		height: 350px;
 	}
 }
 .container .segment {
@@ -258,17 +233,16 @@
 	transform-origin: 50% 0;
 	/* Pivot point at the top center of the text */
 }
-
-.wheel{
-	position: relative;
-	/* top: 50%; */
-	width: 100%;
-}
-
-.wheel img{
-	position: absolute;
-	top: 65px;
-	left: 50%;
-	transform: translateX(-50%);
-	width: 150px;
-}
+/* medis queries for birds  */
+/* @media (max-width: 640px) {
+	.birds {
+	  justify-content: space-evenly;
+	}
+  }
+  
+  @media (max-width: 440px) {
+	.birds {
+	  justify-content: space-between;
+	}
+  } */
+  
