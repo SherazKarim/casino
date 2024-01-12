@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./App.css";
+import styled, { keyframes } from 'styled-components';
 import bird1 from "./images/paret.webp";
 import bird2 from "./images/paret2.webp";
 import arrow from "./images/arrow.webp";
@@ -15,6 +16,32 @@ import { Wrapper } from "./components/wrapper/Wrapper";
 import footer_logo from "./images/footer-logo.svg"
 import Logo from "./components/logos/Logo"
 import FixedImage from "./components/fixedImage/FixedImage";
+
+const rotateWheel = keyframes`
+  0% {
+    transform: rotate(3deg);
+  }
+  50% {
+    transform: rotate(-2deg); // Adjust the rotation angle
+  }
+  100% {
+    transform: rotate(3deg);
+  }
+`;
+
+const StyledWrapper = styled.div`
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .container2 {
+    animation: ${rotateWheel} 3s linear infinite; // Adjust duration as needed
+  }
+`;
+
+
 function App() {
   const [clicks, setClicks] = useState(0);
   const [rotation, setRotation] = useState(0);
@@ -118,11 +145,11 @@ function App() {
           <span>And get the free Bonus</span>
         </h1>
       </div>
-      <Wrapper className="wheel-container k relative w-[100%] flex justify-center items-center">
-      <div className="absolute sm:top-[-22%] top-[-20%] z-[999]">
+      <StyledWrapper className="wheel-container k relative w-[100%] flex justify-center items-center">
+      <div className="absolute sm:top-[-22%] top-[-20%] z-[999]   ">
         <img className="sm:w-[200px] w-[120px]" src={bWheel} alt="" />
       </div>
-        <div className='absolute sm:top-[-72%] top-[-60%] z-[999]">'>
+        <div className='absolute sm:top-[-72%] top-[-60%] z-[999]"> '>
           <img className="rotate-[190deg] sm:w-[700px] w-[90%]" src={bg} alt="Background" />
         </div>
         <div className="birds absolute top-[-25%] z-50 flex sm:justify-evenly justify-around w-full">
@@ -134,9 +161,9 @@ function App() {
         </div>
         <div id="spin" onClick={handleSpinClick}>
             <img src={spin} alt="Spin" />
-            <h1 className="absolute z-[999] text-2xl text-white">SpinxO</h1>
+            <h1 className="absolute z-[999] text-2xl text-white ">SpinxO</h1>
           </div>
-          <div className='border-[14px] border-black/[0.2] rounded-full p-[7px]'>
+          <div className='border-[14px] border-black/[0.2] rounded-full p-[7px] container2'>
             <div className="border-[4px] border-black/[0.2] p-[0.19em] rounded-full">
               <div className={`container`} style={{ transform: `rotate(${rotation}deg)` }}>
                 
@@ -154,7 +181,7 @@ function App() {
               </div>
           </div>
         </div>
-      </Wrapper>
+      </StyledWrapper>
       <FixedImage />
       {/* <Logo /> */}
       <Footer/>
