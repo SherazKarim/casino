@@ -19,6 +19,10 @@
 	overflow-y: hidden;
 
 }
+.clip{
+	background-clip: text;
+}
+
 
 .wheel-container{
 	position: relative;
@@ -67,16 +71,11 @@
 }
 
 .container h1 span {
-	font-size: 1.5rem;
+	/* font-size: 1.5rem; */
 	position: fixed;
 	top: 60%;
-	font-weight: 800;
-	/* background: -webkit-linear-gradient(#f5c46d, #e2cda7); */
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 1px red, 
-      -1px 3px 1px rgb(221, 203, 203), 
-      -2px 5px 1px red;
+
+
 }
 
 /* .arrow {
