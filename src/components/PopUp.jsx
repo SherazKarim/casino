@@ -47,7 +47,7 @@ const PopUp = ({ winPrize, prizes, onClaimBonus, newOffsetAngle, handleCloseBtn 
         </a>}
       </div>
       <div className={styles.close}>
-        <button onClick={handleCloseBtn} className="text-white">close</button>
+        <button onClick={handleCloseBtn} className="text-white text-[10px]">close</button>
       </div>
     </div>
   );

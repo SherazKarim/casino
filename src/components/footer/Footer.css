@@ -1,0 +1,10 @@
+.footer{
+    color: red;
+    font-size: 100px;
+    display: flex;
+    justify-content: space-between;
+}
+.img-prop{
+    height: auto;
+    width: 30%;
+}

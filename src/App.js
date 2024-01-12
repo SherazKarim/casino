@@ -3,17 +3,18 @@ import "./App.css";
 import bird1 from "./images/paret.webp";
 import bird2 from "./images/paret2.webp";
 import arrow from "./images/arrow.webp";
-import spin from "./images/btn.png";
-import bWheel from "./images/bwheel.svg";
-import PopUp from "./components/PopUp";
-import footer_logo from "./images/footer-logo.svg";
+import spin from "./images/spinbg.png";
+import bWheel from "./images/bwheel.svg"
+import PopUp from './components/PopUp';
 import bg from "./images/bg3.webp";
-import startSound from "./audio/start.mp3";
-import winSound from "./audio/win.mp3";
-import loseSound from "./audio/lose.mp3";
-import {Wrapper} from "./components/wrapper/Wrapper";
-import Footer from "./components/footer/Footer";
-import Logo from "./components/logos/Logo";
+import startSound from './audio/start.mp3';
+import winSound from './audio/win.mp3';
+import loseSound from "./audio/lose.mp3"
+import Footer from './components/footer/Footer';
+import { Wrapper } from "./components/wrapper/Wrapper";
+import footer_logo from "./images/footer-logo.svg"
+import Logo from "./components/logos/Logo"
+import FixedImage from "./components/fixedImage/FixedImage";
 function App() {
   const [clicks, setClicks] = useState(0);
   const [rotation, setRotation] = useState(0);
@@ -109,7 +110,7 @@ function App() {
   };
 
   return (
-    <div className="App  py-10">
+    <div className="App  py-10 overflow-x-hidden">
       <div className="wheel flex flex-col justify-center items-center mt-5 sm:mb-32 mb-28">
         <img className="w-[150px]" src={footer_logo} alt="" />
         <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
@@ -117,56 +118,60 @@ function App() {
           <span>And get the free Bonus</span>
         </h1>
       </div>
-      <Wrapper className="wheel-container relative w-[100%] flex justify-center items-center">
+      <Wrapper className="wheel-container k relative w-[100%] flex justify-center items-center">
       <div className="absolute sm:top-[-22%] top-[-20%] z-[999]">
         <img className="sm:w-[200px] w-[120px]" src={bWheel} alt="" />
       </div>
-        <div className='absolute sm:top-[-72%] top-[-20%] z-[999]">'>
-          <img className="rotate-[190deg] w-[700px] " src={bg} alt="Background" />
+        <div className='absolute sm:top-[-72%] top-[-60%] z-[999]">'>
+          <img className="rotate-[190deg] sm:w-[700px] w-[90%]" src={bg} alt="Background" />
         </div>
         <div className="birds absolute top-[-25%] z-50 flex sm:justify-evenly justify-around w-full">
           <img className="sm:w-[200px] w-[120px]" src={bird1} alt="Bird 1" />
           <img className="sm:w-[200px] w-[120px]" src={bird2} alt="Bird 2" />
         </div>
-        <div className="arrow absolute left-[49.2%] z-[80] sm:top-[-5%] top-[-12%] -translate-x-[50%]">
+        <div className="arrow absolute left-[49.8%] z-[80] sm:top-[-5%] top-[-12%] -translate-x-[50%]">
           <img src={arrow} alt="Arrow" />
         </div>
-        <div
-          className="container"
-          style={{ transform: `rotate(${rotation}deg)` }}
-        >
-          <div id="spin" onClick={handleSpinClick}>
+        <div id="spin" onClick={handleSpinClick}>
             <img src={spin} alt="Spin" />
+            <h1 className="absolute z-[999] text-2xl text-white">SpinxO</h1>
           </div>
-          {Object.entries(prizes).map(([key, value], index) => (
-            <div
-              key={key}
-              className={`segment segment-${index + 1}`}
-              style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
-            >
-              <h1>
-                {key === "price1" ? `FS` : `R$`} <span>{value}</span>
-              </h1>
-            </div>
-          ))}
+          <div className='border-[14px] border-black/[0.2] rounded-full p-[7px]'>
+            <div className="border-[4px] border-black/[0.2] p-[0.19em] rounded-full">
+              <div className={`container`} style={{ transform: `rotate(${rotation}deg)` }}>
+                
+                {Object.entries(prizes).map(([key, value], index) => (
+                  <div
+                    key={key}
+                    className={`segment segment-${index + 1}`}
+                    style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
+                  >
+                    <h1>
+                      {key === "price1" ? `FS` : `R$`} <span>{value}</span>
+                    </h1>
+                  </div>
+                ))}
+              </div>
+          </div>
         </div>
       </Wrapper>
-      {/* footer  */}
-      <Logo />
-      <Footer />
+      <FixedImage />
+      {/* <Logo /> */}
+      <Footer/>
       {showPopUp && clicks > 0 && (
         <PopUp
-          winPrize={winPrize}
-          prizes={prizes}
+        winPrize={winPrize}
+        prizes={prizes}
           onClaimBonus={handleClaimBonus}
           newOffsetAngle={newOffsetAngle}
           handleCloseBtn={handleCloseBtn}
-        />
-      )}
+          />
+          )}
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
       <audio ref={loseAudioRef} src={loseSound} preload="auto"></audio>
+      
     </div>
   );
 }

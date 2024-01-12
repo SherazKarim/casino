@@ -13,12 +13,22 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	height: auto;
-	box-sizing: border-box;
+	/* height: 140vh; */
+	/* min-height: fit-content; */
+	/* overflow-x: scroll; */
+	overflow-y: hidden;
+
 }
 
 .wheel-container{
 	position: relative;
+	
+}
+.container-parent{
+	border: 5px solid black;
+	border-radius: 50%;
+	padding: 5px;
+
 }
 .container {
 	width: 500px;
@@ -32,6 +42,7 @@
 	transition: transform 5s;
 	transform-origin: center;
 	/* margin: 150px 0 ; */
+	
 }
 
 
@@ -47,7 +58,8 @@
 	align-items: center;
 	flex-direction: column;
 	gap: 15px;
-	text-shadow: 0px 4px 0px darkred;
+	/* text-shadow: 0px 4px 0px darkred; */
+	/* color: linear-gradient(#2e090c,#570e0e); */
 	/* Dark red text shadow */
 
 	/* height: auto; */
@@ -59,7 +71,12 @@
 	position: fixed;
 	top: 60%;
 	font-weight: 800;
-	/* text-shadow: 0px 4px 0px darkred; Dark red text shadow */
+	/* background: -webkit-linear-gradient(#f5c46d, #e2cda7); */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 1px red, 
+      -1px 3px 1px rgb(221, 203, 203), 
+      -2px 5px 1px red;
 }
 
 /* .arrow {
@@ -69,7 +86,7 @@
 	position: absolute;
 	z-index: 150;
 	top: 15%;
-	left: 49.7%;
+	left: 49.1%;
 	transform: translateX(-50%);
 } */
 
@@ -79,8 +96,11 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 100px;
-	height: 100px;
+	/* width: 119px;
+	height: 119px; */
+	background: linear-gradient(#2e090c,#570e0e);
+	box-shadow: rgba(216, 213, 213, 0.2) 0px 2px 8px 0px;
+	border-radius: 50%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -88,11 +108,19 @@
 	z-index: 999;
 }
 
-#spin img {
-	width: 100%;
+#spin img {	
+	color: white;
+	width: 126px;
 	height: auto;
+	
 }
 
+#spin h1{
+	font-size: 3rem;
+	font-weight: 400;
+	font-family: 'Jolly Lodger', system-ui;
+	text-shadow: 0px 7px 0px rgb(53, 4, 4);
+}
 
 .design {
 	position: absolute;
@@ -120,7 +148,7 @@
 		height: 400px;
 	}
 	#spin img {
-		width: 50%;
+		width: 80px;
 		height: auto;
 		pointer-events: none;
 	}
@@ -150,72 +178,75 @@
 
 /* Position each segment with the correct rotation */
 .container .segment-1 {
-	left: 37.2%;
-	top: 5%;
-	background-image: url('./images/star1.webp');
-	object-fit: cover;
-	background-size: cover;
-	height: 24%;
-	width: 24%;
-	position: relative;
-	border-radius: 50%;
+    left: 37.2%;
+    top: 5%;
+    background-image: url('./images/star1.png');
+    object-fit: cover;
+    background-size: cover;
+    height: 24%;
+    width: 24%;
+    position: relative;
+    border-radius: 50%;
+    box-sizing: border-box;
 }
 
+
+
 .container .segment-2 {
-	background-image: url('./images/star2.webp');
-	/* background-repeat: no-repeat; */
+	background-image: url('./images/star2.png');
+	transform: rotate(60deg);
 	object-fit: cover;
 	background-size: cover;
 	height: 24%;
 	width: 24%;
 	position: relative;
 	border-radius: 50%;
-	left: 65%;
-	top: -4%;
+	left: 66%;
+	top: -3%;
 }
 
 .container .segment-3 {
-	background-image: url('./images/star1.webp');
-	/* background-repeat: no-repeat; */
+	background-image: url('./images/star1.png');
+	transform: rotate(120deg);
 	object-fit: cover;
 	background-size: cover;
 	height: 24%;
 	width: 24%;
 	position: relative;
 	border-radius: 50%;
-	left: 68%;
-	top: 4%;
+	left: 67%;
+	top: 5.5%;
 }
 
 .container .segment-4 {
-	background-image: url('./images/star2.webp');
-	/* background-repeat: no-repeat; */
+	background-image: url('./images/star2.png');
+	transform: rotate(180deg);
 	object-fit: cover;
 	background-size: cover;
 	height: 24%;
 	width: 24%;
 	position: relative;
 	border-radius: 50%;
-	left: 40%;
+	left: 38.8%;
 	top: -1%;
 }
 
 .container .segment-5 {
-	background-image: url('./images/star1.webp');
-	/* background-repeat: no-repeat; */
+	background-image: url('./images/star1.png');
+	transform: rotate(240deg);
 	object-fit: cover;
 	background-size: cover;
 	height: 24%;
 	width: 24%;
 	position: relative;
 	border-radius: 50%;
-	left: 10.5%;
-	top: -39.7%;
+	left: 9.5%;
+	top: -40.8%;
 }
 
 .container .segment-6 {
-	background-image: url('./images/star1.webp');
-	/* background-repeat: no-repeat; */
+	background-image: url('./images/star2.png');
+	transform: rotate(300deg);
 	object-fit: cover;
 	background-size: cover;
 	height: 24%;
@@ -223,7 +254,7 @@
 	position: relative;
 	border-radius: 50%;
 	left: 8.5%;
-	top: -95.5%;
+	top: -98%;
 }
 
 /* Rotate the text within each segment to be readable */
@@ -233,16 +264,16 @@
 	transform-origin: 50% 0;
 	/* Pivot point at the top center of the text */
 }
-/* medis queries for birds  */
-/* @media (max-width: 640px) {
-	.birds {
-	  justify-content: space-evenly;
+
+/* defult rotaion of wpinner  */
+@keyframes slightRotate {
+	0%, 100% {
+	  transform: rotate(-5deg);
+	}
+	50% {
+	  transform: rotate(5deg);
 	}
   }
   
-  @media (max-width: 440px) {
-	.birds {
-	  justify-content: space-between;
-	}
-  } */
+  
   
