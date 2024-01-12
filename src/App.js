@@ -138,7 +138,7 @@ function App() {
 
   return (
     <div className="App  py-10 overflow-x-hidden">
-      <div className="wheel flex flex-col justify-center items-center mt-5 sm:mb-32 mb-28">
+      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28">
         <img className="w-[150px]" src={footer_logo} alt="" />
         <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
           Spin the Wheel
@@ -146,13 +146,13 @@ function App() {
         </h1>
       </div>
       <StyledWrapper className="wheel-container k relative w-[100%] flex justify-center items-center">
-      <div className="absolute sm:top-[-22%] top-[-20%] z-[999]   ">
-        <img className="sm:w-[200px] w-[120px]" src={bWheel} alt="" />
-      </div>
-        <div className='absolute sm:top-[-72%] top-[-60%] z-[999]"> '>
+        <div className="absolute sm:top-[-22%] top-[-20%] z-[999]   ">
+          <img className="sm:w-[200px] w-[120px]" src={bWheel} alt="" />
+        </div>
+        <div className='absolute sm:top-[-52%] top-[-60%] z-[999]"> '>
           <img className="rotate-[190deg] sm:w-[700px] w-[90%]" src={bg} alt="Background" />
         </div>
-        <div className="birds absolute top-[-25%] z-50 flex sm:justify-evenly justify-around w-full">
+        <div className="birds absolute top-[-15%] z-50 flex sm:justify-evenly justify-around w-full">
           <img className="sm:w-[200px] w-[120px]" src={bird1} alt="Bird 1" />
           <img className="sm:w-[200px] w-[120px]" src={bird2} alt="Bird 2" />
         </div>
@@ -160,45 +160,45 @@ function App() {
           <img src={arrow} alt="Arrow" />
         </div>
         <div id="spin" onClick={handleSpinClick}>
-            <img src={spin} alt="Spin" />
-            <h1 className="absolute z-[999] text-2xl text-white ">SpinxO</h1>
-          </div>
-          <div className='border-[14px] border-black/[0.2] rounded-full p-[7px] container2'>
-            <div className="border-[4px] border-black/[0.2] p-[0.19em] rounded-full">
-              <div className={`container`} style={{ transform: `rotate(${rotation}deg)` }}>
-                
-                {Object.entries(prizes).map(([key, value], index) => (
-                  <div
-                    key={key}
-                    className={`segment segment-${index + 1}`}
-                    style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
-                  >
-                    <h1>
-                      {key === "price1" ? `FS` : `R$`} <span>{value}</span>
-                    </h1>
-                  </div>
-                ))}
-              </div>
+          <img src={spin} alt="Spin" />
+          <h1 className="absolute z-[999] text-2xl text-white ">SpinxO</h1>
+        </div>
+        <div className='border-[14px] border-[#934425]/[0.3]  rounded-full p-[7px] container2'>
+          <div className="border-[4px] border-[#934425]/[0.3] p-[0.19em] rounded-full">
+            <div className={`container`} style={{ transform: `rotate(${rotation}deg)` }}>
+
+              {Object.entries(prizes).map(([key, value], index) => (
+                <div
+                  key={key}
+                  className={`segment segment-${index + 1}`}
+                  style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
+                >
+                  <h1>
+                    {key === "price1" ? `FS` : `R$`} <span>{value}</span>
+                  </h1>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </StyledWrapper>
       <FixedImage />
       {/* <Logo /> */}
-      <Footer/>
+      <Footer />
       {showPopUp && clicks > 0 && (
         <PopUp
-        winPrize={winPrize}
-        prizes={prizes}
+          winPrize={winPrize}
+          prizes={prizes}
           onClaimBonus={handleClaimBonus}
           newOffsetAngle={newOffsetAngle}
           handleCloseBtn={handleCloseBtn}
-          />
-          )}
+        />
+      )}
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
       <audio ref={loseAudioRef} src={loseSound} preload="auto"></audio>
-      
+
     </div>
   );
 }

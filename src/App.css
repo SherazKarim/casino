@@ -13,27 +13,27 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	/* height: 140vh; */
-	/* min-height: fit-content; */
-	/* overflow-x: scroll; */
 	overflow-y: hidden;
 
 }
-.clip{
+
+.clip {
 	background-clip: text;
 }
 
 
-.wheel-container{
+.wheel-container {
 	position: relative;
-	
+
 }
-.container-parent{
+
+.container-parent {
 	border: 5px solid black;
 	border-radius: 50%;
 	padding: 5px;
 
 }
+
 .container {
 	width: 500px;
 	height: 500px;
@@ -46,7 +46,7 @@
 	transition: transform 5s;
 	transform-origin: center;
 	/* margin: 150px 0 ; */
-	
+
 }
 
 
@@ -62,33 +62,21 @@
 	align-items: center;
 	flex-direction: column;
 	gap: 15px;
-	/* text-shadow: 0px 4px 0px darkred; */
-	/* color: linear-gradient(#2e090c,#570e0e); */
-	/* Dark red text shadow */
 
-	/* height: auto; */
-	/* width: 60%; */
+	text-shadow:
+		0px 1px 0.3px #8d1701,
+		0px 2px 0.3px #f33202;
 }
 
 .container h1 span {
 	/* font-size: 1.5rem; */
 	position: fixed;
 	top: 60%;
-
-
+	font-weight: 800;
+	text-shadow:
+		0px 1px 0.3px #8d1701,
+		0px 2px 0.3px #f33202;
 }
-
-/* .arrow {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	position: absolute;
-	z-index: 150;
-	top: 15%;
-	left: 49.1%;
-	transform: translateX(-50%);
-} */
-
 
 #spin {
 	position: absolute;
@@ -97,7 +85,7 @@
 	transform: translate(-50%, -50%);
 	/* width: 119px;
 	height: 119px; */
-	background: linear-gradient(#2e090c,#570e0e);
+	background: linear-gradient(#2e090c, #570e0e);
 	box-shadow: rgba(216, 213, 213, 0.2) 0px 2px 8px 0px;
 	border-radius: 50%;
 	display: flex;
@@ -107,31 +95,30 @@
 	z-index: 999;
 }
 
-#spin img {	
+#spin img {
 	color: white;
 	width: 126px;
 	height: auto;
-	
+
 }
 
-#spin h1{
+#spin h1 {
 	font-size: 3rem;
 	font-weight: 400;
 	font-family: 'Jolly Lodger', system-ui;
-	text-shadow: 0px 7px 0px rgb(53, 4, 4);
+	text-shadow:
+		0px 3px 0.3px #500e0e,
+		0px 5px 0.3px #6a1218;
+	;
 }
 
 .design {
 	position: absolute;
-	/* z-index: 50; */
-	/* display: flex;
-	justify-content: center;
-	align-items: center; */
 	top: -14%;
 	transform: rotate(180deg);
 }
 
-.design img{
+.design img {
 	width: 100%;
 	height: 100%;
 }
@@ -139,13 +126,15 @@
 
 
 @media (max-width: 640px) {
-	.App{
-	height: auto;
+	.App {
+		height: auto;
 	}
+
 	.container {
 		width: 400px;
 		height: 400px;
 	}
+
 	#spin img {
 		width: 80px;
 		height: auto;
@@ -156,15 +145,18 @@
 		font-size: 14px;
 	}
 }
+
 @media (max-width: 440px) {
-	.App{
-	height: auto;
+	.App {
+		height: auto;
 	}
+
 	.container {
 		width: 350px;
 		height: 350px;
 	}
 }
+
 .container .segment {
 	position: absolute;
 	transform-origin: center;
@@ -177,16 +169,16 @@
 
 /* Position each segment with the correct rotation */
 .container .segment-1 {
-    left: 37.2%;
-    top: 5%;
-    background-image: url('./images/star1.png');
-    object-fit: cover;
-    background-size: cover;
-    height: 24%;
-    width: 24%;
-    position: relative;
-    border-radius: 50%;
-    box-sizing: border-box;
+	left: 37.2%;
+	top: 5%;
+	background-image: url('./images/star1.png');
+	object-fit: cover;
+	background-size: cover;
+	height: 24%;
+	width: 24%;
+	position: relative;
+	border-radius: 50%;
+	box-sizing: border-box;
 }
 
 
@@ -266,13 +258,13 @@
 
 /* defult rotaion of wpinner  */
 @keyframes slightRotate {
-	0%, 100% {
-	  transform: rotate(-5deg);
+
+	0%,
+	100% {
+		transform: rotate(-5deg);
 	}
+
 	50% {
-	  transform: rotate(5deg);
+		transform: rotate(5deg);
 	}
-  }
-  
-  
-  
+}
