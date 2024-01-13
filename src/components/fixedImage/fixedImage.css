@@ -1,0 +1,14 @@
+.shrink {
+    transition: 1s ease;
+}
+
+.shrink:hover img {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
+    transform: scale(0.8);
+    transition: 1s ease;
+}
+.shrink, .shrink img {
+    margin: 0;
+    padding: 0;
+}

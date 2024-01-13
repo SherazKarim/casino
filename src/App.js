@@ -137,7 +137,7 @@ function App() {
   };
 
   return (
-    <div className="App  py-10 overflow-x-hidden">
+    <div className="App overflow-x-hidden">
       <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28">
         <img className="w-[150px]" src={footer_logo} alt="" />
         <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
@@ -161,7 +161,7 @@ function App() {
         </div>
         <div id="spin" onClick={handleSpinClick}>
           <img src={spin} alt="Spin" />
-          <h1 className="absolute z-[999] text-2xl text-white ">SpinxO</h1>
+          <h1 className="absolute z-[999] text-2xl text-white hover:text-orange-900">SpinxO</h1>
         </div>
         <div className='border-[14px] border-[#934425]/[0.3]  rounded-full p-[7px] container2'>
           <div className="border-[4px] border-[#934425]/[0.3] p-[0.19em] rounded-full">
