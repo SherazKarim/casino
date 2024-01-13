@@ -9,8 +9,9 @@ const FixedImage = () => {
         href='https://basari.bet/register/?atp=&goto=sitereg&click_id=db0e6b614084ed125e69c0acdbe0155a&plid=18023&bnid=28892&lang=en&cc=DE&pid=75001&timestamp=1704818372.0174&refCode=mb_BQBnRgAA3HAAAPkkAQA.2024-01.10&uuid=2241693eef5ab9219d7c3219c3c69d9c789906dc'
         className='relative shrink flex justify-center items-center'
     >
-        <img className='w-[50%]' src={circle} alt="" />
-        <img className='w-[30%] absolute z-[999]' src={text} alt="" />
+        <img className='w-[50%]  brightness-75' src={circle} alt="" />
+        <img className='w-[40%] absolute z-[999] top-[-10px] left-[40px]' src={text} alt="" />
+        <h1 className='go absolute flex justify-center'>Go!</h1>
     </a>
 </div>
 
