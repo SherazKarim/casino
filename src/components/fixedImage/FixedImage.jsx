@@ -1,26 +1,19 @@
-import React from 'react'
-import circle from "../../images/btn.png"
-import text from "../../images/battle.webp"
-import './fixedImage.css'
+import React from 'react';
+import circle from "../../images/btn.png";
+import text from "../../images/battle.webp";
+import './fixedImage.css';
+import {Link} from "react-router-dom"
+
 const FixedImage = () => {
-  return (
-    <div className='fixed left-[0px] bottom-0 z-[999]'>
-    <a
-        href='https://basari.bet/register/?atp=&goto=sitereg&click_id=db0e6b614084ed125e69c0acdbe0155a&plid=18023&bnid=28892&lang=en&cc=DE&pid=75001&timestamp=1704818372.0174&refCode=mb_BQBnRgAA3HAAAPkkAQA.2024-01.10&uuid=2241693eef5ab9219d7c3219c3c69d9c789906dc'
-        className='relative shrink flex justify-center items-center'
-    >
-        <img className='w-[50%]  brightness-75' src={circle} alt="" />
-        <img className='w-[40%] absolute z-[999] top-[-10px] left-[40px]' src={text} alt="" />
-        <h1 className='go absolute flex justify-center'>Go!</h1>
-    </a>
-</div>
-
-
-
-
-
-
-  )
+    return (
+        <div className='fixed left-[0px] bottom-0 z-[999]'>
+            <Link to='https://basari.bet/register/...' className='relative image-container shrink flex justify-center items-center'>
+                <img className='w-[50%] brightness-75 rotate' src={circle} alt="" />
+                <img className='w-[40%] absolute z-[999] top-[-10px] left-[40px]' src={text} alt="" />
+                <h1 className='go absolute flex justify-center'>Go!</h1>
+            </Link>
+        </div>
+    );
 }
 
-export default FixedImage
+export default FixedImage;
