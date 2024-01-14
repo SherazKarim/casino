@@ -1,6 +1,4 @@
-*{
-    box-sizing: border-box;
-}
+
 .shrink {
     transition: 1s ease;
 }
@@ -8,8 +6,8 @@
 .go {
     font-size: 1.5rem;
     font-weight: 800;
-    color: #eaba6e;
-    transform: rotate(-30deg);
+    color: #e29d2e;
+    transform: rotate(-35deg);
     text-shadow:
         0px 1px 0.3px #8d1701,
         0px 2px
@@ -21,7 +19,7 @@
 }
 
 .rotate {
-    animation: rotate-circle 59s linear infinite;
+    animation: rotate-circle 82s linear infinite;
 }
 
 
