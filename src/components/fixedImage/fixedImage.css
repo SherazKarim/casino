@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 .shrink {
     transition: 1s ease;
 }
