@@ -79,26 +79,26 @@ function App() {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
     }
-
+  
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(prizes.price1 * 6);
-
+  
     const extraDegrees = 360;
     const newRotation =
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
-
+  
     startAudioRef.current.play();
-
+  
     setTimeout(() => {
       const finalRotation = newRotation % 360;
       const offsetAngle = (385 - finalRotation + 22.5) % 385;
       setNewOffSetAngle(offsetAngle);
       const winningSector = Math.floor(offsetAngle / 40);
       let winningPrice;
-
+  
       if (winningSector > 7) {
         winningPrice = prizes.price6;
       } else if (winningSector === 1) {
@@ -108,28 +108,19 @@ function App() {
       } else {
         winningPrice = prizes[`price${winningSector + 1}`];
       }
-
+  
       setWinPrize(winningPrice);
-
-      // Fetch the audio file as ArrayBuffer
-      fetch(winAudioRef.current.src)
-        .then(response => response.arrayBuffer())
-        .then(data => {
-          // Play audio using Web Audio API
-          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-          audioContext.decodeAudioData(data, buffer => {
-            const source = audioContext.createBufferSource();
-            source.buffer = buffer;
-            source.connect(audioContext.destination);
-            source.start(0);
-          });
-        });
-
+  
+      // Use Audio constructor for iOS
+      const audio = new Audio(winAudioRef.current.src);
+      audio.play();
+  
       localStorage.setItem("popUpShown", "true");
       localStorage.setItem("clicks", "1");
       setShowPopUp(true);
     }, 5000);
   };
+  
 
   const handleClaimBonus = () => {
     setShowPopUp(true);
@@ -151,7 +142,7 @@ function App() {
     <div className="App overflow-x-hidden">
       <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-32 mt-10">
         <img className="w-[150px]" src={footer_logo} alt="" />
-        <h1 className="text-white text-[2rem] font-[600] flex mt-10 flex-col justify-center items-center">
+        <h1 className="text-white text-[2rem] font-[600] flex mt-5 flex-col justify-center items-center">
           Spin the Wheel
           <span>And get the free Bonus</span>
         </h1>
