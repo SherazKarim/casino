@@ -66,7 +66,6 @@ function App() {
     const storedPopUpShown = localStorage.getItem("popUpShown");
     const storedClicks = parseInt(localStorage.getItem("clicks"), 10);
     const storedWinPrize = localStorage.getItem("winPrize");
-    
 
     if (storedPopUpShown === "true") {
       setShowPopUp(true);
@@ -84,7 +83,6 @@ function App() {
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(prizes.price1 * 6);
-    console.log("chosen segment", chosenSegment);
 
     const extraDegrees = 360;
     const newRotation =
@@ -92,7 +90,6 @@ function App() {
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
-    // Play audio in response to a user interaction
     startAudioRef.current.play();
 
     setTimeout(() => {
@@ -112,11 +109,21 @@ function App() {
         winningPrice = prizes[`price${winningSector + 1}`];
       }
 
-      // Play audio in response to a user interaction
-      winAudioRef.current.play();
-
-      // localStorage.setItem("winPrize", winningPrice);
       setWinPrize(winningPrice);
+
+      // Fetch the audio file as ArrayBuffer
+      fetch(winAudioRef.current.src)
+        .then(response => response.arrayBuffer())
+        .then(data => {
+          // Play audio using Web Audio API
+          const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+          audioContext.decodeAudioData(data, buffer => {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+            source.start(0);
+          });
+        });
 
       localStorage.setItem("popUpShown", "true");
       localStorage.setItem("clicks", "1");
@@ -142,9 +149,9 @@ function App() {
 
   return (
     <div className="App overflow-x-hidden">
-      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28">
+      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-32 mt-10">
         <img className="w-[150px]" src={footer_logo} alt="" />
-        <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
+        <h1 className="text-white text-[2rem] font-[600] flex mt-10 flex-col justify-center items-center">
           Spin the Wheel
           <span>And get the free Bonus</span>
         </h1>
