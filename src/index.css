@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-
+/* 
 .overlay{
     position: fixed;
     height: 100vh;
     width: 100%;
     background-color: red;
     z-index: 110;
-}
+} */

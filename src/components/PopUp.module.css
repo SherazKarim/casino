@@ -94,4 +94,7 @@
 		height: 400px;
 
 	}
+  .container2{
+    justify-content: unset;
+  }
 }
