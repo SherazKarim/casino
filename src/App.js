@@ -10,6 +10,7 @@ import PopUp from './components/PopUp';
 import bg from "./images/bg3.webp";
 import startSound from './audio/start.mp3';
 import winSound from './audio/win.mp3';
+import loseSound from "./audio/lose.mp3"
 import Footer from './components/footer/Footer';
 import { Wrapper } from "./components/wrapper/Wrapper";
 import footer_logo from "./images/footer-logo.svg"
@@ -59,6 +60,7 @@ function App() {
 
   const startAudioRef = useRef(null);
   const winAudioRef = useRef(null);
+  const loseAudioRef = useRef(null);
 
   useEffect(() => {
     const storedPopUpShown = localStorage.getItem("popUpShown");
@@ -87,8 +89,6 @@ function App() {
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
-    startAudioRef.current.load();
-    winAudioRef.current.load();
     startAudioRef.current.play();
 
     setTimeout(() => {
@@ -110,7 +110,9 @@ function App() {
 
       localStorage.setItem("winPrize", winningPrice);
       setWinPrize(winningPrice);
-       winAudioRef.current.play();
+      winningPrice === "Empty"
+        ? loseAudioRef.current.play()
+        : winAudioRef.current.play();
 
       localStorage.setItem("popUpShown", "true");
       localStorage.setItem("clicks", "1");
@@ -136,7 +138,7 @@ function App() {
 
   return (
     <div className="App overflow-x-hidden">
-      <div className="wheel flex flex-col justify-center items-center mt-5 sm:mb-32 mb-28">
+      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28">
         <img className="w-[150px]" src={footer_logo} alt="" />
         <h1 className="text-white text-[2rem] font-[600] flex flex-col justify-center items-center">
           Spin the Wheel
@@ -195,6 +197,7 @@ function App() {
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
+      <audio ref={loseAudioRef} src={loseSound} preload="auto"></audio>
 
     </div>
   );
