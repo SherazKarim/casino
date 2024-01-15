@@ -48,10 +48,10 @@ function App() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [newOffsetAngle, setNewOffSetAngle] = useState(false);
   const [prizes, setPrizes] = useState({
-    price1: 5,
+    price1: 10,
     price2: 1568,
     price3: 1000,
-    price4: 15,
+    price4: 5,
     price5: 105,
     price6: 300,
   });
@@ -66,6 +66,7 @@ function App() {
     const storedPopUpShown = localStorage.getItem("popUpShown");
     const storedClicks = parseInt(localStorage.getItem("clicks"), 10);
     const storedWinPrize = localStorage.getItem("winPrize");
+    
 
     if (storedPopUpShown === "true") {
       setShowPopUp(true);
@@ -82,8 +83,10 @@ function App() {
 
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
-    const chosenSegment = Math.floor(Math.random() * 6);
-    const extraDegrees = 1080; // Ensures the wheel spins at least 3 times for visual effect
+    const chosenSegment = Math.floor(prizes.price1 * 6);
+    console.log("choosen segment",chosenSegment)
+    
+    const extraDegrees = 360;
     const newRotation =
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);

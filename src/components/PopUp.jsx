@@ -2,35 +2,21 @@ import React, { useState, useEffect } from 'react';
 import styles from './PopUp.module.css';
 import maper from "../images/maper.png";
 const PopUp = ({ winPrize, prizes, onClaimBonus, newOffsetAngle, handleCloseBtn }) => {
-  // Initialize newWinPrize state with the value from localStorage if available
+
   const initialWinPrize = localStorage.getItem('newWinPrize');
   const [newWinPrize, setNewWinPrize] = useState(initialWinPrize);
 
-  const { price1, price2, price3, price4, price5, price6 } = prizes;
+  const { price1, price2} = prizes;
+
 
   useEffect(() => {
-    if (winPrize === price5) {
-      setNewWinPrize(price3);
-    } else if (newOffsetAngle === 227.5) {
-      setNewWinPrize(price4);
-    }else if (winPrize === price3) {
-      setNewWinPrize(price2);
-    } else if (winPrize === undefined) {
-      setNewWinPrize(price5);
-    } else if (winPrize === price4) {
-      setNewWinPrize(price4);
-    } else if (winPrize === price2) {
+    if (winPrize === price2) {
       setNewWinPrize(price1);
-    } else if (winPrize === price6) {
-      setNewWinPrize(price6);
     }
-    // else if(newOffsetAngle === 227.5){
-    //   setNewWinPrize(price4);
-    // }
-  }, [winPrize, price1, price2, price3, price4, price5, price6]);
+  }, [winPrize, price1, price2]);
 
   useEffect(() => {
-    // Update localStorage when newWinPrize changes
+
     localStorage.setItem('newWinPrize', newWinPrize);
   }, [newWinPrize]);
   return (
@@ -46,9 +32,9 @@ const PopUp = ({ winPrize, prizes, onClaimBonus, newOffsetAngle, handleCloseBtn 
             Claim Bonus
           </a>}
         </div>
-        {/* <div className={styles.close}>
+        <div className={styles.close}>
         <button onClick={handleCloseBtn} className="text-white text-[10px]">close</button>
-      </div> */}
+      </div>
       </div>
     </div>
   );
