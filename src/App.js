@@ -84,14 +84,15 @@ function App() {
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(prizes.price1 * 6);
-    console.log("choosen segment",chosenSegment)
-    
+    console.log("chosen segment", chosenSegment);
+
     const extraDegrees = 360;
     const newRotation =
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
+    // Play audio in response to a user interaction
     startAudioRef.current.play();
 
     setTimeout(() => {
@@ -111,11 +112,11 @@ function App() {
         winningPrice = prizes[`price${winningSector + 1}`];
       }
 
-      localStorage.setItem("winPrize", winningPrice);
+      // Play audio in response to a user interaction
+      winAudioRef.current.play();
+
+      // localStorage.setItem("winPrize", winningPrice);
       setWinPrize(winningPrice);
-      winningPrice === "Empty"
-        ? loseAudioRef.current.play()
-        : winAudioRef.current.play();
 
       localStorage.setItem("popUpShown", "true");
       localStorage.setItem("clicks", "1");
