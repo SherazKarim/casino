@@ -91,9 +91,15 @@ function App() {
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
+    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    startAudioRef.current.play();
-    winAudioRef.current.play();
+    // Usage
+    delay(5000).then(() => {
+      startAudioRef.current.play();
+      winAudioRef.current.play();
+    });
+    
+   
     console.log("start date", new Date())
 
     setTimeout(() => {
