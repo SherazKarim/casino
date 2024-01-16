@@ -44,7 +44,6 @@ const StyledWrapper = styled.div`
 
 function App() {
   const [clicks, setClicks] = useState(0);
-  const [date, setDate] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
   const [newOffsetAngle, setNewOffSetAngle] = useState(false);
@@ -77,49 +76,7 @@ function App() {
     setWinPrize(storedWinPrize || null);
   }, []);
 
-  // useEffect(() => {
-  //   let intervalId;
 
-  //   if (date && date !== null) {
-  //     intervalId = setInterval(() => {
-  //       // const currentDate= new Date()
-  //       // const currentDateSeconds = currentDate.getSeconds()
-  //       // setCurrentTime(new Date());
-  //       // const currentSeconds = date.getSeconds();
-  //       // console.log("testing", currentSeconds, currentDateSeconds, currentDateSeconds - currentSeconds);
-  //       // const diff = currentDateSeconds-currentSeconds;
-  //       // if(diff === 5){
-  //       // winAudioRef.current.play();
-  //       // }
-  //       setInterval(() => {
-  //         winAudioRef.current.play();
-  //       }, 1000)
-  //     }, 1000);
-  //     // sleep(5000).then(()=>{
-  //     //   console.log("testing",date);
-  //     //   winAudioRef.current.play();
-  //     // });
-  //   }
-  //   setInterval(() => {
-  //     clearInterval(intervalId)
-  //   }, 6000)
-
-  //   return () => clearInterval(intervalId);
-  // }, [date]);
-
-  useEffect(() => {
-    // Set up a timer to run the function after 5 seconds
-    const timerId = setTimeout(() => {
-      if (date && date !== null) {
-        winAudioRef.current.play();
-      }
-    }, 5000);
-
-    // Clean up the timer when the component unmounts
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, [date]);
   const handleSpinClick = async () => {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
@@ -128,43 +85,37 @@ function App() {
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(prizes.price1 * 6);
-    // console.log("choosen segment",chosenSegment)
 
     const extraDegrees = 360;
     const newRotation =
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
-
-    console.log("start1", new Date())
     startAudioRef.current.play();
-    // await sleep(5000);
-    setDate(new Date())
     winAudioRef.current.play();
     winAudioRef.current.pause();
 
-    console.log("start date", new Date())
 
+    await sleep(5000)
+    playWinAudio()
+      .then(() => {
+        const finalRotation = newRotation % 360;
+        const offsetAngle = (385 - finalRotation + 22.5) % 385;
+        setNewOffSetAngle(offsetAngle);
+        const winningSector = Math.floor(offsetAngle / 40);
+        let winningPrice;
+        localStorage.setItem("winPrize", winningPrice);
+        setWinPrize(winningPrice);
 
-    // playWinAudio()
-    //   .then(() => {
-    // const finalRotation = newRotation % 360;
-    // const offsetAngle = (385 - finalRotation + 22.5) % 385;
-    // setNewOffSetAngle(offsetAngle);
-    // const winningSector = Math.floor(offsetAngle / 40);
-    // let winningPrice;
-    // localStorage.setItem("winPrize", winningPrice);
-    // setWinPrize(winningPrice);
+        // console.log("winningPrice",winningPrice)
 
-    // // console.log("winningPrice",winningPrice)
-
-    // localStorage.setItem("popUpShown", "true");
-    // localStorage.setItem("clicks", "1");
-    // setShowPopUp(true);
-    // })
-    // .catch((error) => {
-    //   console.error("Error playing audio:", error);
-    // });
+        localStorage.setItem("popUpShown", "true");
+        localStorage.setItem("clicks", "1");
+        setShowPopUp(true);
+      })
+      .catch((error) => {
+        console.error("Error playing audio:", error);
+      });
   };
 
   const sleep = (milliseconds) => {
