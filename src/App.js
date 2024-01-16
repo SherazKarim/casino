@@ -44,6 +44,7 @@ const StyledWrapper = styled.div`
 
 function App() {
   const [clicks, setClicks] = useState(0);
+  const [date, setDate] = useState(null);
   const [rotation, setRotation] = useState(0);
   const [showPopUp, setShowPopUp] = useState(false);
   const [newOffsetAngle, setNewOffSetAngle] = useState(false);
@@ -76,6 +77,22 @@ function App() {
     setWinPrize(storedWinPrize || null);
   }, []);
 
+  useEffect(() => {
+    let intervalId ;
+    if(date && date !== null){
+      // const intervalId = setInterval(() => {
+      //   // setCurrentTime(new Date());
+      //   console.log("testing",date);
+      // }, 1000); 
+      sleep(5000).then(()=>{
+        console.log("testing",date);
+        winAudioRef.current.play();
+      });
+    }
+    
+    return () => clearInterval(intervalId);
+  }, [date]);
+
   const handleSpinClick = async() => {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
@@ -94,31 +111,32 @@ function App() {
 
     console.log("start1", new Date())
     startAudioRef.current.play();
-    await sleep(2000);
+    // await sleep(5000);
+    setDate(new Date())
     
    
     console.log("start date", new Date())
 
  
-      playWinAudio()
-        .then(() => {
-          const finalRotation = newRotation % 360;
-          const offsetAngle = (385 - finalRotation + 22.5) % 385;
-          setNewOffSetAngle(offsetAngle);
-          const winningSector = Math.floor(offsetAngle / 40);
-          let winningPrice;
-          localStorage.setItem("winPrize", winningPrice);
-          setWinPrize(winningPrice);
+      // playWinAudio()
+      //   .then(() => {
+          // const finalRotation = newRotation % 360;
+          // const offsetAngle = (385 - finalRotation + 22.5) % 385;
+          // setNewOffSetAngle(offsetAngle);
+          // const winningSector = Math.floor(offsetAngle / 40);
+          // let winningPrice;
+          // localStorage.setItem("winPrize", winningPrice);
+          // setWinPrize(winningPrice);
 
-          // console.log("winningPrice",winningPrice)
+          // // console.log("winningPrice",winningPrice)
 
-          localStorage.setItem("popUpShown", "true");
-          localStorage.setItem("clicks", "1");
-          setShowPopUp(true);
-        })
-        .catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+          // localStorage.setItem("popUpShown", "true");
+          // localStorage.setItem("clicks", "1");
+          // setShowPopUp(true);
+        // })
+        // .catch((error) => {
+        //   console.error("Error playing audio:", error);
+        // });
   };
 
   const sleep = (milliseconds) => {
