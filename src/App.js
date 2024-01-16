@@ -60,7 +60,6 @@ function App() {
 
   const startAudioRef = useRef(null);
   const winAudioRef = useRef(null);
-  const loseAudioRef = useRef(null);
 
   useEffect(() => {
     const storedPopUpShown = localStorage.getItem("popUpShown");
@@ -79,7 +78,7 @@ function App() {
 
   const handleSpinClick = async () => {
     if (clicks > 0) {
-      return; // Prevent spinning if clicks are more than 0
+      return;
     }
 
     setClicks((clicks) => clicks + 1);
@@ -106,8 +105,6 @@ function App() {
         let winningPrice;
         localStorage.setItem("winPrize", winningPrice);
         setWinPrize(winningPrice);
-
-        // console.log("winningPrice",winningPrice)
 
         localStorage.setItem("popUpShown", "true");
         localStorage.setItem("clicks", "1");
@@ -139,15 +136,6 @@ function App() {
     localStorage.setItem("clicks", "1");
   };
 
-  const handleCloseBtn = () => {
-    setShowPopUp(false);
-    setClicks(0);
-    localStorage.setItem("popUpShown", "false");
-    localStorage.setItem("clicks", "0");
-    localStorage.removeItem("winPrize");
-    setWinPrize(undefined);
-  };
-
   return (
     <div className="App overflow-x-hidden">
       <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28 mt-12">
@@ -164,7 +152,7 @@ function App() {
         <div className='absolute sm:top-[-52%] top-[-60%] z-[999]"> '>
           <img className="rotate-[190deg] sm:w-[700px] w-[90%]" src={bg} alt="Background" />
         </div>
-        <div className="birds absolute top-[-15%] z-50 flex sm:justify-evenly justify-around w-full">
+        <div className="birds absolute top-[-20%] z-50 flex sm:justify-evenly justify-around w-full">
           <img className="sm:w-[200px] w-[120px]" src={bird1} alt="Bird 1" />
           <img className="sm:w-[200px] w-[120px]" src={bird2} alt="Bird 2" />
         </div>
@@ -203,7 +191,6 @@ function App() {
           prizes={prizes}
           onClaimBonus={handleClaimBonus}
           newOffsetAngle={newOffsetAngle}
-          handleCloseBtn={handleCloseBtn}
         />
       )}
 
