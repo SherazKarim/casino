@@ -67,6 +67,7 @@ function App() {
     const storedClicks = parseInt(localStorage.getItem("clicks"), 10);
     const storedWinPrize = localStorage.getItem("winPrize");
 
+
     if (storedPopUpShown === "true") {
       setShowPopUp(true);
     }
@@ -79,49 +80,58 @@ function App() {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
     }
-  
+
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
     const chosenSegment = Math.floor(prizes.price1 * 6);
-  
+    // console.log("choosen segment",chosenSegment)
+
     const extraDegrees = 360;
     const newRotation =
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
-  
+
     startAudioRef.current.play();
-  
+    console.log("start date", new Date())
+
     setTimeout(() => {
-      const finalRotation = newRotation % 360;
-      const offsetAngle = (385 - finalRotation + 22.5) % 385;
-      setNewOffSetAngle(offsetAngle);
-      const winningSector = Math.floor(offsetAngle / 40);
-      let winningPrice;
-  
-      if (winningSector > 7) {
-        winningPrice = prizes.price6;
-      } else if (winningSector === 1) {
-        winningPrice = prizes.price1;
-      } else if (winningSector === 0) {
-        winningPrice = prizes.price2;
-      } else {
-        winningPrice = prizes[`price${winningSector + 1}`];
-      }
-  
-      setWinPrize(winningPrice);
-  
-      // Use Audio constructor for iOS
-      const audio = new Audio(winAudioRef.current.src);
-      audio.play();
-  
-      localStorage.setItem("popUpShown", "true");
-      localStorage.setItem("clicks", "1");
-      setShowPopUp(true);
+      console.log("timeout start", new Date())
+      // winAudioRef.current.play();
+      playWinAudio()
+        .then(() => {
+          const finalRotation = newRotation % 360;
+          const offsetAngle = (385 - finalRotation + 22.5) % 385;
+          setNewOffSetAngle(offsetAngle);
+          const winningSector = Math.floor(offsetAngle / 40);
+          let winningPrice;
+          localStorage.setItem("winPrize", winningPrice);
+          setWinPrize(winningPrice);
+
+          // console.log("winningPrice",winningPrice)
+
+          localStorage.setItem("popUpShown", "true");
+          localStorage.setItem("clicks", "1");
+          setShowPopUp(true);
+        })
+        .catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+
+
     }, 5000);
   };
-  
 
+  const playWinAudio = () => {
+    return new Promise((resolve, reject) => {
+      try {
+        winAudioRef.current.play();
+        resolve();
+      } catch (error) {
+        reject(error);
+      }
+    });
+  };
   const handleClaimBonus = () => {
     setShowPopUp(true);
     setClicks(1);
@@ -140,9 +150,9 @@ function App() {
 
   return (
     <div className="App overflow-x-hidden">
-      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-32 mt-10">
+      <div className="wheel flex flex-col justify-center items-center sm:mb-32 mb-28 mt-12">
         <img className="w-[150px]" src={footer_logo} alt="" />
-        <h1 className="text-white text-[2rem] font-[600] flex mt-5 flex-col justify-center items-center">
+        <h1 className="text-white text-[2rem] mt-5 font-[600] flex flex-col justify-center items-center">
           Spin the Wheel
           <span>And get the free Bonus</span>
         </h1>
@@ -199,7 +209,7 @@ function App() {
 
       <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
-      <audio ref={loseAudioRef} src={loseSound} preload="auto"></audio>
+
 
     </div>
   );
