@@ -78,30 +78,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    let intervalId ;
-  
-    if(date && date !== null){
-      const intervalId = setInterval(() => {
-        const currentDate= new Date()
-        const currentDateSeconds = currentDate.getSeconds()
+    let intervalId;
+
+    if (date && date !== null) {
+       intervalId = setInterval(() => {
+        // const currentDate= new Date()
+        // const currentDateSeconds = currentDate.getSeconds()
         // setCurrentTime(new Date());
-        const currentSeconds = date.getSeconds();
-        console.log("testing",currentSeconds,currentDateSeconds,currentDateSeconds-currentSeconds);
-        const diff = currentDateSeconds-currentSeconds;
-        if(diff === 5){
-          winAudioRef.current.play();
-        }
-      }, 1000); 
+        // const currentSeconds = date.getSeconds();
+        // console.log("testing", currentSeconds, currentDateSeconds, currentDateSeconds - currentSeconds);
+        // const diff = currentDateSeconds-currentSeconds;
+        // if(diff === 5){
+        winAudioRef.current.play();
+        // }
+      }, 5 * 1000);
       // sleep(5000).then(()=>{
       //   console.log("testing",date);
       //   winAudioRef.current.play();
       // });
     }
-    
+    setInterval(() => {
+      clearInterval(intervalId)
+    }, 6000)
+
     return () => clearInterval(intervalId);
   }, [date]);
 
-  const handleSpinClick = async() => {
+  const handleSpinClick = async () => {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
     }
@@ -121,30 +124,30 @@ function App() {
     startAudioRef.current.play();
     // await sleep(5000);
     setDate(new Date())
-    
-   
+
+
     console.log("start date", new Date())
 
- 
-      // playWinAudio()
-      //   .then(() => {
-          // const finalRotation = newRotation % 360;
-          // const offsetAngle = (385 - finalRotation + 22.5) % 385;
-          // setNewOffSetAngle(offsetAngle);
-          // const winningSector = Math.floor(offsetAngle / 40);
-          // let winningPrice;
-          // localStorage.setItem("winPrize", winningPrice);
-          // setWinPrize(winningPrice);
 
-          // // console.log("winningPrice",winningPrice)
+    // playWinAudio()
+    //   .then(() => {
+    // const finalRotation = newRotation % 360;
+    // const offsetAngle = (385 - finalRotation + 22.5) % 385;
+    // setNewOffSetAngle(offsetAngle);
+    // const winningSector = Math.floor(offsetAngle / 40);
+    // let winningPrice;
+    // localStorage.setItem("winPrize", winningPrice);
+    // setWinPrize(winningPrice);
 
-          // localStorage.setItem("popUpShown", "true");
-          // localStorage.setItem("clicks", "1");
-          // setShowPopUp(true);
-        // })
-        // .catch((error) => {
-        //   console.error("Error playing audio:", error);
-        // });
+    // // console.log("winningPrice",winningPrice)
+
+    // localStorage.setItem("popUpShown", "true");
+    // localStorage.setItem("clicks", "1");
+    // setShowPopUp(true);
+    // })
+    // .catch((error) => {
+    //   console.error("Error playing audio:", error);
+    // });
   };
 
   const sleep = (milliseconds) => {
