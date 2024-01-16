@@ -92,32 +92,32 @@ function App() {
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
-    // startAudioRef.current.play();
-    // winAudioRef.current.play();
+    startAudioRef.current.play();
+    winAudioRef.current.play();
     console.log("start date", new Date())
 
     setTimeout(() => {
       console.log("timeout start", new Date())
       // winAudioRef.current.play();
-      playWinAudio()
-        .then(() => {
-          const finalRotation = newRotation % 360;
-          const offsetAngle = (385 - finalRotation + 22.5) % 385;
-          setNewOffSetAngle(offsetAngle);
-          const winningSector = Math.floor(offsetAngle / 40);
-          let winningPrice;
-          localStorage.setItem("winPrize", winningPrice);
-          setWinPrize(winningPrice);
+      // playWinAudio()
+      //   .then(() => {
+      //     const finalRotation = newRotation % 360;
+      //     const offsetAngle = (385 - finalRotation + 22.5) % 385;
+      //     setNewOffSetAngle(offsetAngle);
+      //     const winningSector = Math.floor(offsetAngle / 40);
+      //     let winningPrice;
+      //     localStorage.setItem("winPrize", winningPrice);
+      //     setWinPrize(winningPrice);
 
-          // console.log("winningPrice",winningPrice)
+      //     // console.log("winningPrice",winningPrice)
 
-          localStorage.setItem("popUpShown", "true");
-          localStorage.setItem("clicks", "1");
-          setShowPopUp(true);
-        })
-        .catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+      //     localStorage.setItem("popUpShown", "true");
+      //     localStorage.setItem("clicks", "1");
+      //     setShowPopUp(true);
+      //   })
+      //   .catch((error) => {
+      //     console.error("Error playing audio:", error);
+      //   });
 
 
     }, 5000);
