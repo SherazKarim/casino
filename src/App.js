@@ -79,15 +79,23 @@ function App() {
 
   useEffect(() => {
     let intervalId ;
+  
     if(date && date !== null){
-      // const intervalId = setInterval(() => {
-      //   // setCurrentTime(new Date());
+      const intervalId = setInterval(() => {
+        const currentDate= new Date()
+        const currentDateSeconds = currentDate.getSeconds()
+        // setCurrentTime(new Date());
+        const currentSeconds = date.getSeconds();
+        console.log("testing",currentSeconds,currentDateSeconds,currentDateSeconds-currentSeconds);
+        const diff = currentDateSeconds-currentSeconds;
+        if(diff === 5){
+          winAudioRef.current.play();
+        }
+      }, 1000); 
+      // sleep(5000).then(()=>{
       //   console.log("testing",date);
-      // }, 1000); 
-      sleep(5000).then(()=>{
-        console.log("testing",date);
-        winAudioRef.current.play();
-      });
+      //   winAudioRef.current.play();
+      // });
     }
     
     return () => clearInterval(intervalId);
