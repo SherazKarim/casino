@@ -93,6 +93,7 @@ function App() {
     setWinningSegment(chosenSegment);
 
     // startAudioRef.current.play();
+    // winAudioRef.current.play();
     console.log("start date", new Date())
 
     setTimeout(() => {
@@ -125,7 +126,7 @@ function App() {
   const playWinAudio = () => {
     return new Promise((resolve, reject) => {
       try {
-        winAudioRef.current.play();
+        startAudioRef.current.play();
         resolve();
       } catch (error) {
         reject(error);
