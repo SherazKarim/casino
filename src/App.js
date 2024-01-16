@@ -91,7 +91,7 @@ function App() {
         // if(diff === 5){
         winAudioRef.current.play();
         // }
-      }, 1000);
+      }, 2000);
       // sleep(5000).then(()=>{
       //   console.log("testing",date);
       //   winAudioRef.current.play();
