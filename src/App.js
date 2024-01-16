@@ -137,10 +137,11 @@ function App() {
     setWinningSegment(chosenSegment);
 
     console.log("start1", new Date())
-    // startAudioRef.current.play();
+    startAudioRef.current.play();
     // await sleep(5000);
     setDate(new Date())
-
+    winAudioRef.current.play();
+    winAudioRef.current.pause();
 
     console.log("start date", new Date())
 
@@ -255,7 +256,7 @@ function App() {
         />
       )}
 
-      {/* <audio ref={startAudioRef} src={startSound} preload="auto"></audio> */}
+      <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
 
 
