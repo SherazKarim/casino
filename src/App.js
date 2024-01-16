@@ -48,12 +48,12 @@ function App() {
   const [showPopUp, setShowPopUp] = useState(false);
   const [newOffsetAngle, setNewOffSetAngle] = useState(false);
   const [prizes, setPrizes] = useState({
-    price1: 10,
-    price2: 1568,
-    price3: 1000,
-    price4: 5,
-    price5: 105,
-    price6: 300,
+    price1: "$100",
+    price2: "$50",
+    price3: "$750",
+    price4: "0",
+    price5: "10,000",
+    price6: "0",
   });
   const [winPrize, setWinPrize] = useState(null);
   const [winningSegment, setWinningSegment] = useState(null);
@@ -83,7 +83,8 @@ function App() {
 
     setClicks((clicks) => clicks + 1);
     const degreesPerSegment = 360 / 6;
-    const chosenSegment = Math.floor(prizes.price1 * 6);
+    const typeChange = Number(prizes.price1.replace("$", ""))
+    const chosenSegment = Math.floor(typeChange * 6);
 
     const extraDegrees = 360;
     const newRotation =
@@ -102,10 +103,11 @@ function App() {
         const offsetAngle = (385 - finalRotation + 22.5) % 385;
         setNewOffSetAngle(offsetAngle);
         const winningSector = Math.floor(offsetAngle / 40);
-        let winningPrice;
+        console.log(winningSector)
+        let winningPrice = Number(prizes.price1.replace("$", ""));
+        console.log(winningPrice)
         localStorage.setItem("winPrize", winningPrice);
         setWinPrize(winningPrice);
-
         localStorage.setItem("popUpShown", "true");
         localStorage.setItem("clicks", "1");
         setShowPopUp(true);
@@ -115,6 +117,7 @@ function App() {
       });
   };
 
+  console.log("winPrize", winPrize)
   const sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
@@ -174,7 +177,7 @@ function App() {
                   style={{ "--segment-rotation": `${(index + 1) * 60}deg` }}
                 >
                   <h1>
-                    {key === "price1" ? `FS` : `R$`} <span>{value}</span>
+                    <span>{value}</span>
                   </h1>
                 </div>
               ))}

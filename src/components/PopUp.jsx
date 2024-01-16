@@ -1,30 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PopUp.module.css';
 import maper from "../images/maper.png";
-const PopUp = ({ winPrize, prizes, onClaimBonus, newOffsetAngle, handleCloseBtn }) => {
-
-  const initialWinPrize = localStorage.getItem('newWinPrize');
-  const [newWinPrize, setNewWinPrize] = useState(initialWinPrize);
-
-  const { price1, price2} = prizes;
-
-
-  useEffect(() => {
-    if (winPrize === price2) {
-      setNewWinPrize(price1);
-    }
-  }, [winPrize, price1, price2]);
-
-  useEffect(() => {
-
-    localStorage.setItem('newWinPrize', newWinPrize);
-  }, [newWinPrize]);
+const PopUp = ({ winPrize, onClaimBonus }) => {
   return (
     <div className={styles.container2}>
       <div className={`${styles.card} h-[450px] sm:w-[400px] w-[90%]`}>
         <div className={styles.prize}>
           {winPrize === "Empty" ? <h1>Better Luck Next Time!</h1> : <h1>Congratulations you <br /> <span className={styles.span1}>Won</span>
-            <span>${newWinPrize} + 200</span></h1>}
+            <span>${winPrize} + 200</span></h1>}
         </div>
         <div className={styles.footer}>
           <img className={styles.btn_image} src={maper} alt="" />
