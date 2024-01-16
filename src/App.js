@@ -76,7 +76,7 @@ function App() {
     setWinPrize(storedWinPrize || null);
   }, []);
 
-  const handleSpinClick = () => {
+  const handleSpinClick = async() => {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
     }
@@ -91,48 +91,44 @@ function App() {
       rotation + extraDegrees + chosenSegment * degreesPerSegment;
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
-    const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-    // Usage
-    delay(5000).then(() => {
-      startAudioRef.current.play();
-      winAudioRef.current.play();
-    });
+    console.log("start1", new Date())
+    startAudioRef.current.play();
+    await sleep(5000);
     
    
     console.log("start date", new Date())
 
-    setTimeout(() => {
-      console.log("timeout start", new Date())
-      // winAudioRef.current.play();
-      // playWinAudio()
-      //   .then(() => {
-      //     const finalRotation = newRotation % 360;
-      //     const offsetAngle = (385 - finalRotation + 22.5) % 385;
-      //     setNewOffSetAngle(offsetAngle);
-      //     const winningSector = Math.floor(offsetAngle / 40);
-      //     let winningPrice;
-      //     localStorage.setItem("winPrize", winningPrice);
-      //     setWinPrize(winningPrice);
+ 
+      playWinAudio()
+        .then(() => {
+          const finalRotation = newRotation % 360;
+          const offsetAngle = (385 - finalRotation + 22.5) % 385;
+          setNewOffSetAngle(offsetAngle);
+          const winningSector = Math.floor(offsetAngle / 40);
+          let winningPrice;
+          localStorage.setItem("winPrize", winningPrice);
+          setWinPrize(winningPrice);
 
-      //     // console.log("winningPrice",winningPrice)
+          // console.log("winningPrice",winningPrice)
 
-      //     localStorage.setItem("popUpShown", "true");
-      //     localStorage.setItem("clicks", "1");
-      //     setShowPopUp(true);
-      //   })
-      //   .catch((error) => {
-      //     console.error("Error playing audio:", error);
-      //   });
+          localStorage.setItem("popUpShown", "true");
+          localStorage.setItem("clicks", "1");
+          setShowPopUp(true);
+        })
+        .catch((error) => {
+          console.error("Error playing audio:", error);
+        });
+  };
 
-
-    }, 5000);
+  const sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
 
   const playWinAudio = () => {
     return new Promise((resolve, reject) => {
       try {
-        startAudioRef.current.play();
+        winAudioRef.current.play();
         resolve();
       } catch (error) {
         reject(error);
