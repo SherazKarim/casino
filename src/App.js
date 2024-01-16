@@ -92,7 +92,7 @@ function App() {
     setRotation(newRotation);
     setWinningSegment(chosenSegment);
 
-    startAudioRef.current.play();
+    // startAudioRef.current.play();
     console.log("start date", new Date())
 
     setTimeout(() => {
