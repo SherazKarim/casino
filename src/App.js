@@ -94,7 +94,7 @@ function App() {
 
     console.log("start1", new Date())
     startAudioRef.current.play();
-    await sleep(1000);
+    await sleep(2000);
     
    
     console.log("start date", new Date())
