@@ -77,33 +77,49 @@ function App() {
     setWinPrize(storedWinPrize || null);
   }, []);
 
+  // useEffect(() => {
+  //   let intervalId;
+
+  //   if (date && date !== null) {
+  //     intervalId = setInterval(() => {
+  //       // const currentDate= new Date()
+  //       // const currentDateSeconds = currentDate.getSeconds()
+  //       // setCurrentTime(new Date());
+  //       // const currentSeconds = date.getSeconds();
+  //       // console.log("testing", currentSeconds, currentDateSeconds, currentDateSeconds - currentSeconds);
+  //       // const diff = currentDateSeconds-currentSeconds;
+  //       // if(diff === 5){
+  //       // winAudioRef.current.play();
+  //       // }
+  //       setInterval(() => {
+  //         winAudioRef.current.play();
+  //       }, 1000)
+  //     }, 1000);
+  //     // sleep(5000).then(()=>{
+  //     //   console.log("testing",date);
+  //     //   winAudioRef.current.play();
+  //     // });
+  //   }
+  //   setInterval(() => {
+  //     clearInterval(intervalId)
+  //   }, 6000)
+
+  //   return () => clearInterval(intervalId);
+  // }, [date]);
+
   useEffect(() => {
-    let intervalId;
-
-    if (date && date !== null) {
-       intervalId = setInterval(() => {
-        // const currentDate= new Date()
-        // const currentDateSeconds = currentDate.getSeconds()
-        // setCurrentTime(new Date());
-        // const currentSeconds = date.getSeconds();
-        // console.log("testing", currentSeconds, currentDateSeconds, currentDateSeconds - currentSeconds);
-        // const diff = currentDateSeconds-currentSeconds;
-        // if(diff === 5){
+    // Set up a timer to run the function after 5 seconds
+    const timerId = setTimeout(() => {
+      if (date && date !== null) {
         winAudioRef.current.play();
-        // }
-      }, 2000);
-      // sleep(5000).then(()=>{
-      //   console.log("testing",date);
-      //   winAudioRef.current.play();
-      // });
-    }
-    setInterval(() => {
-      clearInterval(intervalId)
-    }, 6000)
+      }
+    }, 5000);
 
-    return () => clearInterval(intervalId);
+    // Clean up the timer when the component unmounts
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [date]);
-
   const handleSpinClick = async () => {
     if (clicks > 0) {
       return; // Prevent spinning if clicks are more than 0
@@ -121,7 +137,7 @@ function App() {
     setWinningSegment(chosenSegment);
 
     console.log("start1", new Date())
-    startAudioRef.current.play();
+    // startAudioRef.current.play();
     // await sleep(5000);
     setDate(new Date())
 
@@ -239,7 +255,7 @@ function App() {
         />
       )}
 
-      <audio ref={startAudioRef} src={startSound} preload="auto"></audio>
+      {/* <audio ref={startAudioRef} src={startSound} preload="auto"></audio> */}
       <audio ref={winAudioRef} src={winSound} preload="auto"></audio>
 
 
